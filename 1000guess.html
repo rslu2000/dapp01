@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Hello World DApp</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <script src="./web3-0.20.7.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@0.20.6/dist/web3.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script> -->
+
+</head>
+
+<body class="container">
+  <h1>Dapp應用範例：去中心化樂透彩</h1>
+  <!-- <h2>Goerli測試鏈上水族世界版合約地址：0xC819938287DEA987088F056e639677d5b6390A15</h2> -->
+  <h2>Goerli測試鏈上合約地址：0xEC12c6cac76D4E78c7D3145810360DC2feC0B851</h2>
+  <h1>樂透彩即時看盤區</h1>
+  <div class="table-responsive">
+    <h3 id="wallet" value="xx">當前玩家地址：</h3>
+    <table class="table table-bordered">
+      <tr>
+        <td>狀態</td>
+        <td id="state"></td>
+        <td>合約餘額</td>
+        <td id="getBalance"></td>
+      </tr>
+      <tr>
+        <td>最大競爭人數</td>
+        <td id="getMaxContenders"></td>
+        <td>累積樂透淨額</td>
+        <td id="getLotteryMoney"></td>
+      </tr>
+      <tr>
+        <td>莊家抽頭</td>
+        <td id="getDeveloperFee"></td>
+        <td>投注金額</td>
+        <td id="getBettingPrice"></td>
+      </tr>
+      <tr>
+        <td>開發者地址</td>
+        <td id="getDeveloperAddress"></td>
+        <td>投注狀態</td>
+        <td id="getBettingStatus"></td>
+      </tr>
+    </table>
+
+    <div id="noLogin">找不到 web3 或 帳號鎖上中</div>
+    <div id="forPlayer">
+      <h1>下注區</h1>
+      <div>下注賭金<input id="ether">(請依右上角之投注金額下注)</div>
+      <div>輸入猜測值<input id="addguessValue"><button id="addguessBtn">下注</button>交易編號:<span id="addguessTxid"></span></div>
+    </div>
+    <div id="forFounder">
+      <h1>---------莊家修改遊戲參數區------------</h1>
+      <div>輸入一個目標值找最接近的贏家
+        <input id="findWinnersValue">
+        <button id="findWinnersBtn">尋找</button>
+        回傳:
+        <span id="findWinnersResult"></span>
+      </div>
+      <br />
+      <div>設定競爭條件 競爭人數:
+        <input id="_contenders"> 投注價格(eth):
+        <input id="_bettingprice">
+        <button id="setBettingConditionBtn">設定</button>
+        交易編號:
+        <span id="setBettingConditionTxid"></span>
+      </div>
+      <br />
+      <div>開牌與派彩
+        <button id="finishBtn">點擊</button>
+        回傳:
+        <span id="finishResult"></span>
+      </div>
+      <br />
+
+      <div>得到投注狀態
+        <button id="getBettingStasticsBtn">點擊</button>
+        交易編號:<span id="getBettingStasticsTxid"></span> call 回傳:<span id="getBettingStasticsResult"></span>
+      </div>
+      <div>設定狀態價格
+        <input id="setStatusPriceValue">
+        <button id="setStatusPriceBtn">點擊</button>
+        交易編號:<span id="setStatusPriceTxid"></span>
+      </div>
+    </div>
+
+    <div>
+      <h1>---------查詢歷史賭局結果------------</h1>
+      <button id="history">查詢歷史賭局結果</button>:
+      <table class="table table-bordered">
+        <thead>
+          <th>
+          <td>莊家手續費(ether)</td>
+          <td>餘額(ether)</td>
+          <td>猜測值</td>
+          <td>開獎號碼</td>
+          <td>贏家所獲得彩金(ether)</td>
+          <td>開牌日期</td>
+          <td>贏家</td>
+          </th>
+        </thead>
+        <tbody id="event"></tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.5/Rx.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
+<script src="./1000guess.js"></script>
+
+</html>
